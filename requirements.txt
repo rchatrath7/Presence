@@ -1,0 +1,4 @@
+Django==1.10.5
+djangorestframework==3.5.3
+facebook-sdk==2.0.0
+requests==2.12.5
