@@ -11,7 +11,13 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
-from config import *
+import dj_database_url
+
+try:
+    from config import *
+    IS_PRODUCTION = False
+except:
+    IS_PRODUCTION = True
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,7 +30,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '9vex7gs3%2&2k_7%i&nn6lqozoonynlqv(9c8a%hc!ef7g!@lf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if IS_PRODUCTION:
+    DEBUG = False
+else:
+    DEBUG = True
+
 
 ALLOWED_HOSTS = ['*']
 
@@ -89,16 +99,20 @@ WSGI_APPLICATION = 'Presence.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'presence_db',
-            'USER': 'presence',
-            'PASSWORD': '801>86?Rz40T6MQ',
-            'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-            'PORT': '',
+if IS_PRODUCTION:
+    DATABASES = {}
+    DATABASES['default'] = dj_database_url.config(default=os.environ.get('DATABASE_URL'), conn_max_age=500)
+else:
+    DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'NAME': 'presence_db',
+                'USER': 'presence',
+                'PASSWORD': '801>86?Rz40T6MQ',
+                'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+                'PORT': '',
+            }
         }
-    }
 
 
 # Password validation
@@ -147,6 +161,10 @@ STATIC_URL = '/static/'
 # Social AUTH settings
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/home/'
 SOCIAL_AUTH_LOGIN_URL = '/'
+
+if IS_PRODUCTION:
+    SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY')
+    SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET')
 
 SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_details',
