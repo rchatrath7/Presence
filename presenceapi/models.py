@@ -8,8 +8,8 @@ from django.db import models
 class FacebookProfile(models.Model):
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE, null=True)
     access_token = models.CharField(max_length=255)
-    likes = JSONField()
-    tagged_places = JSONField()
+    likes = JSONField(null=True)
+    tagged_places = JSONField(null=True)
     # birthday = JSONField()
     # hometown = JSONField()
     # work_history = JSONField()
