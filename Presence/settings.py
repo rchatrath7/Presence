@@ -81,12 +81,12 @@ WSGI_APPLICATION = 'Presence.wsgi.application'
 
 DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'presence_db',
             'USER': 'presence',
             'PASSWORD': '801>86?Rz40T6MQ',
             'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-            'PORT': '3306',
+            'PORT': '',
         }
     }
 
