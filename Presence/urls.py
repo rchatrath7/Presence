@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from presenceapi import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url('', include('presenceapi.urls')),
+    url(r'^$', views.root),
+    url(r'^home/$', views.home),
     url('', include('social_django.urls')),
-    url('', include('presenceapi.urls'))
 ]

@@ -1,20 +1,26 @@
-from presenceapi.models import FacebookProfile
-from presenceapi.serializers import FacebookProfileSerializer
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
-from rest_framework import generics
+from django.shortcuts import render, redirect
 
 # Create your views here.
-class FacebookProfileList(generics.ListCreateAPIView):
-    """
-    List all Facebook profiles or create a new profile
-    """
-    queryset = FacebookProfile.objects.all()
-    serializer_class = FacebookProfileSerializer
 
+def root(request):
+    return render(request, 'root.html')
 
-class FacebookProfileDetails(generics.RetrieveAPIView):
-    """
-    Retrieve a specific Facebook Profile
-    """
-    queryset = FacebookProfile.objects.all()
-    serializer_class = FacebookProfileSerializer
+def home(request):
+    if request.method == 'POST':
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+
+        if password1 == password2:
+            request.user.set_password(password1)
+            request.user.save()
+            messages.success(request, "Success! You've set your password")
+        else:
+            messages.error(request, "Uh oh! Your passwords do not match")
+
+    return render(request, 'home.html')
+
+def go_to_facebook(request):
+    return redirect(request, "login/facebook/")
