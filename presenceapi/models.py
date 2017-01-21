@@ -5,8 +5,5 @@ from django.db import models
 # Create your models here.
 # Rudimentary Profile Model
 class FacebookProfile(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    user_name = models.CharField(max_length=100)
-    profile_picture = models.CharField(max_length=100)
-    access_token = models.CharField(max_length=100)
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE, null=True)
+    access_token = models.CharField(max_length=255)
