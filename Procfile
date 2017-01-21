@@ -1,1 +1,1 @@
-web: gunicorn Presence.wsgi --log-file
+web: gunicorn Presence.wsgi --log-file -
