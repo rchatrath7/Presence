@@ -16,5 +16,5 @@ class FacebookProfileDetails(generics.RetrieveAPIView):
     """
     Retrieve a specific Facebook Profile
     """
-    queryset = Snippet.objects.all()
-    serializer_class = SnippetSerializer
+    queryset = FacebookProfile.objects.all()
+    serializer_class = FacebookProfileSerializer
