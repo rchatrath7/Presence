@@ -4,4 +4,4 @@ from django.apps import AppConfig
 
 
 class PresenceApiConfig(AppConfig):
-    name = 'presence_api'
+    name = 'presenceapi'
