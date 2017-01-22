@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'presenceapi.apps.PresenceApiConfig',
     'social_django',
+    'rest_framework_docs',
 ]
 
 REST_FRAMEWORK = {
