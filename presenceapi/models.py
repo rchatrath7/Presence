@@ -15,6 +15,8 @@ class FacebookProfile(models.Model):
     access_token = models.CharField(max_length=255)
     likes = JSONField(null=True)
     tagged_places = JSONField(null=True)
+    posts = JSONField(null=True)
+    personality = JSONField(null=True)
     # birthday = JSONField()
     # hometown = JSONField()
     # work_history = JSONField()
