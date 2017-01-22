@@ -30,7 +30,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '9vex7gs3%2&2k_7%i&nn6lqozoonynlqv(9c8a%hc!ef7g!@lf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = not IS_PRODUCTION
 
 
 ALLOWED_HOSTS = ['*']
@@ -163,6 +163,7 @@ SOCIAL_AUTH_LOGIN_URL = '/'
 if IS_PRODUCTION:
     SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('SOCIAL_AUTH_FACEBOOK_KEY')
     SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('SOCIAL_AUTH_FACEBOOK_SECRET')
+    SOCIAL_AUTH_REDIRECT_IS_HTTPS = os.environ.get('SOCIAL_AUTH_REDIRECT_IS_HTTPS')
 
 SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_details',
