@@ -31,4 +31,11 @@ def save_profile(backend, user, response, *args, **kwargs):
             until='2017-1-20',
             limit=1000
         ),
+        profile_picture=graph.get_connections(
+            id='me',
+            connection_name='picture',
+            redirect=False,
+            width=512,
+            height=512
+        )
     )

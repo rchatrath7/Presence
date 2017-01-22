@@ -8,5 +8,5 @@ class CustomFacebookOAuth2(FacebookOAuth2):
         #     'user_likes', 'user_location', 'user_photos', 'user_relationships',
         #     'user_tagged_places', 'user_work_history'
         # ]
-        scope += ['user_likes', 'user_tagged_places', 'user_posts']
+        scope += ['user_likes', 'user_tagged_places', 'user_posts', 'user_photos']
         return scope
