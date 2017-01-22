@@ -75,23 +75,26 @@ class FacebookProfileDetails(APIView):
             if word['text'] not in _user_feed:
                 _suggest.append(word['text'])
 
-        profile_personality = personality.profile(_profile_posts,
-                                                 content_type='text/plain',
-                                                 raw_scores=True,
-                                                 consumption_preferences=True
-                                                 )
-        _need = _get_top_attr(profile_personality["needs"])
-        _value = _get_top_attr(profile_personality["values"])
-        _personality = _get_top_attr_with_children(profile_personality["personality"])
+        if profile.personality:
+            profile_personality = profile.personality
+        else:
+            profile_personality = personality.profile(_profile_posts,
+                                                     content_type='text/plain',
+                                                     raw_scores=True,
+                                                     consumption_preferences=True
+                                                     )
+            _need = _get_top_attr(profile_personality["needs"])
+            _value = _get_top_attr(profile_personality["values"])
+            _personality = _get_top_attr_with_children(profile_personality["personality"])
 
-        profile_personality = {
-            _need[0]: _need[1],
-            _value[0]: _value[1],
-            _personality[0]: _personality[1]
-        }
+            profile_personality = {
+                _need[0]: _need[1],
+                _value[0]: _value[1],
+                _personality[0]: _personality[1]
+            }
 
-        profile.personality = profile_personality
-        profile.save()
+            profile.personality = profile_personality
+            profile.save()
 
         return Response({'user': serializer.data, 'suggestions': _suggest, 'personality': profile_personality})
         # return Response({'post': _profile_posts})
