@@ -22,19 +22,21 @@ def _get_top_attr(details):
     max_score = 0
     category = details[0]['category']
     name = ""
+    percentile = 0
 
     for i in details:
         if i['percentile'] * 100 / i['raw_score'] > max_score:
             name = i["name"]
             max_score = i['percentile'] * 100 / i['raw_score']
+            percentile = i['percentile'] * 100
 
-    return [category, name]
+    return [category, name, percentile]
 
 def _get_top_attr_with_children(details):
     _top_attr = _get_top_attr(details)
     _specific = _get_top_attr(filter(lambda x: x['name'] == _top_attr[1], details)[0]["children"])[1]
 
-    return [_top_attr[0], _top_attr[1] + " (" + _specific + ")"]
+    return [_top_attr[0], _top_attr[1] + " (" + _specific + ")", _top_attr[2]]
 
 
 class FacebookProfileList(generics.ListCreateAPIView):
@@ -90,7 +92,8 @@ class FacebookProfileDetails(APIView):
             profile_personality = {
                 _need[0]: _need[1],
                 _value[0]: _value[1],
-                _personality[0]: _personality[1]
+                _personality[0]: _personality[1],
+                "percentile": (_need[2] + _value[2] + _personality[2] / 3)
             }
 
             profile.personality = profile_personality

@@ -10,6 +10,13 @@ def save_profile(backend, user, response, *args, **kwargs):
     FacebookProfile.objects.create(
         user=user,
         access_token=token,
+        try:
+            about=graph.get_connections(
+                id='me',
+                fields='about'
+            )['about']
+        except:
+            pass 
         likes=graph.get_connections(
             id='me',
             connection_name='likes',

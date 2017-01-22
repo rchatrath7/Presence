@@ -12,6 +12,7 @@ from django.conf import settings
 # Rudimentary Profile Model
 class FacebookProfile(models.Model):
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE, null=True)
+    about = models.CharField(max_length=255, null=True)
     access_token = models.CharField(max_length=255)
     profile_picture = models.URLField(max_length=255, null=True)
     likes = JSONField(null=True)
