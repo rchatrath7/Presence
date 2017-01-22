@@ -26,4 +26,5 @@ class FacebookProfileSerializer(serializers.ModelSerializer):
             "last_name",
             "access_token",
             "profile_picture",
+            "about",
         )
