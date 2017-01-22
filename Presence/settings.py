@@ -179,3 +179,10 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.user.user_details',
     'presenceapi.pipeline.save_profile',
 )
+
+# WATSON
+if IS_PRODUCTION:
+    WATSON_VERSION = os.environ.get('WATSON_VERSION')
+    WATSON_API_KEY = os.environ.get('WATSON_API_KEY')
+    WATSON_USERNAME = os.environ.get('WATSON_USERNAME')
+    WATSON_PASSWORD = os.environ.get('WATSON_PASSWORD')
